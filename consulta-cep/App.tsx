@@ -3,9 +3,6 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 
-
-
-
 const App: React.FC = () => {
 
   const [cep, setCep] = useState('');
@@ -50,3 +47,14 @@ const App: React.FC = () => {
     }
     
     });
+
+
+    type Address = {
+      logradouro: string;
+      bairro: string;
+      localidade: string;
+      uf: string;
+      }
+      
+      const [address, setAddress] = useState<Address | null>(null);
+      const [error, setError] = useState('');
