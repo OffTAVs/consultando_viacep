@@ -58,3 +58,31 @@ const App: React.FC = () => {
       
       const [address, setAddress] = useState<Address | null>(null);
       const [error, setError] = useState('');
+
+      const fetchAddress = async () => {
+        setError('');
+        setAddress(null);
+        
+        if (cep.length !== 8) {        
+        setError('CEP inválido. Deve conter 8 dígitos.');       
+        return;       
+        }
+        
+        
+        try {        
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);      
+        if (response.data.erro) {
+        
+        setError('CEP não encontrado.');
+        
+        } 
+        else {       
+        setAddress(response.data);       
+        }
+        
+        } 
+        catch (error) {       
+        setError('Erro ao buscar CEP. Verifique sua conexão.');       
+        }
+        
+        };
