@@ -3,6 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
+type Address = {
+  logradouro: string;
+  bairro: string;
+  localidade: string;
+  uf: string;
+  };
 
 const App: React.FC = () => {
 
@@ -10,12 +16,7 @@ const App: React.FC = () => {
   const [address, setAddress] = useState<Address | null>(null);
   const [error, setError] = useState('');
 
-  type Address = {
-    logradouro: string;
-    bairro: string;
-    localidade: string;
-    uf: string;
-    }
+  
 
   const fetchAddress = async () => {
     setError('');
@@ -41,7 +42,7 @@ const App: React.FC = () => {
     setError('Erro ao buscar CEP. Verifique sua conexão.');  
          
     }       
-    };
+  };
     
     
   return (
@@ -64,8 +65,8 @@ const App: React.FC = () => {
 <Text>Bairro: {address.bairro}</Text>
 <Text>Cidade: {address.localidade} - {address.uf}</Text>
 </View>
-
 )}
+ <StatusBar style="auto" />
   </View>
   );
   };
@@ -106,7 +107,7 @@ const App: React.FC = () => {
     });
 
 
-    
+    export default App;
       
       
 
