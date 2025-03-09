@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react'
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
@@ -7,6 +8,31 @@ const App: React.FC = () => {
 
   const [cep, setCep] = useState('');
 
+  const fetchAddress = async () => {
+    setError('');
+    setAddress(null);
+    
+    if (cep.length !== 8) {        
+    setError('CEP inválido. Deve conter 8 dígitos.');       
+    return;       
+    }
+    
+    
+    try {        
+    const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);      
+    if (response.data.erro) {       
+    setError('CEP não encontrado.');       
+    } 
+    else {       
+    setAddress(response.data);       
+    }
+    
+    } 
+    catch (error) {       
+    setError('Erro ao buscar CEP. Verifique sua conexão.');       
+    }       
+    };
+    
   return (
   <View style={styles.container}>
   <Text style={styles.title}>Consulta CEP</Text>
@@ -17,7 +43,7 @@ const App: React.FC = () => {
   value={cep}
   onChangeText={setCep}
   />
-  <Button title="Buscar" onPress={() => {}} />
+  <Button title="Buscar" onPress={fetchAddress} />
   </View>
   );
   };
@@ -59,30 +85,4 @@ const App: React.FC = () => {
       const [address, setAddress] = useState<Address | null>(null);
       const [error, setError] = useState('');
 
-      const fetchAddress = async () => {
-        setError('');
-        setAddress(null);
-        
-        if (cep.length !== 8) {        
-        setError('CEP inválido. Deve conter 8 dígitos.');       
-        return;       
-        }
-        
-        
-        try {        
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);      
-        if (response.data.erro) {
-        
-        setError('CEP não encontrado.');
-        
-        } 
-        else {       
-        setAddress(response.data);       
-        }
-        
-        } 
-        catch (error) {       
-        setError('Erro ao buscar CEP. Verifique sua conexão.');       
-        }
-        
-        };
+      
