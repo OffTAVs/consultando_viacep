@@ -29,9 +29,11 @@ const App: React.FC = () => {
     
     } 
     catch (error) {       
-    setError('Erro ao buscar CEP. Verifique sua conexão.');       
+    setError('Erro ao buscar CEP. Verifique sua conexão.');  
+         
     }       
     };
+    
     
   return (
   <View style={styles.container}>
@@ -49,7 +51,7 @@ const App: React.FC = () => {
   };
 
   const styles = StyleSheet.create({
-
+    
     container: {
     flex: 1,
     justifyContent: 'center',
@@ -70,8 +72,17 @@ const App: React.FC = () => {
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 10,
-    }
-    
+    }, 
+
+    error: {
+      color: 'red', 
+      marginTop: 10,    
+      },
+      
+      result: {
+      marginTop: 20,
+      alignItems: 'center',
+      },
     });
 
 
@@ -84,5 +95,24 @@ const App: React.FC = () => {
       
       const [address, setAddress] = useState<Address | null>(null);
       const [error, setError] = useState('');
+
+{error ? <Text style={styles.error}>{error}</Text> : null}
+
+{address && (
+
+<View style={styles.result}>
+
+<Text>Logradouro: {address.logradouro}</Text>
+
+<Text>Bairro: {address.bairro}</Text>
+
+<Text>Cidade: {address.localidade} - {address.uf}</Text>
+
+</View>
+
+)}
+
+
+      
 
       
