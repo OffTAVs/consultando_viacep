@@ -97,17 +97,11 @@ const App: React.FC = () => {
       const [error, setError] = useState('');
 
 {error ? <Text style={styles.error}>{error}</Text> : null}
-
 {address && (
-
 <View style={styles.result}>
-
 <Text>Logradouro: {address.logradouro}</Text>
-
 <Text>Bairro: {address.bairro}</Text>
-
 <Text>Cidade: {address.localidade} - {address.uf}</Text>
-
 </View>
 
 )}
